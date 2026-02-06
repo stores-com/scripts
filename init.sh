@@ -4,7 +4,7 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # AWS CLI
-#brew install awscli
+brew install awscli
 
 # MongoDB
 brew tap mongodb/brew
@@ -20,7 +20,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm install 22
+nvm install 24
 
 # Downgrade to NPM 6
 npm install -g npm@6
@@ -36,6 +36,10 @@ npm i @eslint/js -g
 # PM2
 npm i pm2 -g
 
+# GitHub CLI
+brew install gh
+gh auth login
+
 # GitHub Desktop
 brew install github
 
@@ -45,15 +49,19 @@ brew install mongodb-compass
 # ngrok
 brew install ngrok
 
+# Salesforce CLI
+brew install --cask salesforce-cli
+sf org login web
+
 # Visual Studio Code
 brew install visual-studio-code
 
 # Visual Studio Code Extensions
+code --install-extension Anthropic.claude-code
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension DigitalBrainstem.javascript-ejs-support
-code --install-extension GitHub.copilot
-code --install-extension GitHub.copilot-chat
 code --install-extension mechatroner.rainbow-csv
+code --install-extension ms-ossdata.vscode-pgsql
 code --install-extension ms-vsliveshare.vsliveshare
 code --install-extension redhat.vscode-yaml
 
@@ -65,7 +73,3 @@ mas install 1553936137
 
 # Slack
 mas install 803453959
-
-# GitHub CLI
-brew install gh
-gh auth login
