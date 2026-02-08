@@ -3,6 +3,13 @@
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm install 24
+
 # AWS CLI
 brew install awscli
 
@@ -14,16 +21,11 @@ brew tap mongodb/brew
 brew install mongodb-community@8.0
 brew services start mongodb-community@8.0
 
-# Redis
-brew install redis
-brew services start redis
+# MongoDB Atlas CLI: https://www.mongodb.com/docs/atlas/cli/current
+brew install mongodb-atlas-cli
 
-# NVM
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm install 24
+# MongoDB Compass
+brew install mongodb-compass
 
 # npmclean
 echo 'alias npm-clean="rm -rf node_modules/ && rm -f package-lock.json && npm i && npm outdated"' >> ~/.zshrc
@@ -38,20 +40,19 @@ npm i pm2 -g
 
 # GitHub CLI
 brew install gh
-gh auth login
 
 # GitHub Desktop
 brew install github
 
-# MongoDB Compass
-brew install mongodb-compass
-
 # ngrok
 brew install ngrok
 
+# Redis
+brew install redis
+brew services start redis
+
 # Salesforce CLI
 brew install --cask salesforce-cli
-sf org login web
 
 # Visual Studio Code
 brew install visual-studio-code
