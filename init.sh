@@ -6,6 +6,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # AWS CLI
 brew install awscli
 
+# Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
+brew install azure-cli
+
 # MongoDB
 brew tap mongodb/brew
 brew install mongodb-community@8.0
