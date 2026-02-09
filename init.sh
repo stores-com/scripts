@@ -16,6 +16,12 @@ brew install awscli
 # Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
 brew install azure-cli
 
+# Claude
+brew install --cask claude
+
+# Claude Code
+curl -fsSL https://claude.ai/install.sh | bash
+
 # MongoDB
 brew tap mongodb/brew
 brew install mongodb-community@8.0
@@ -34,6 +40,11 @@ alias npm-clean="rm -rf node_modules/ && rm -f package-lock.json && npm i && npm
 # ESLint
 npm i eslint -g
 npm i @eslint/js -g
+
+# Playwright
+npm install -g @playwright/cli@latest
+playwright-cli --help
+playwright-cli install --skills
 
 # PM2
 npm i pm2 -g
