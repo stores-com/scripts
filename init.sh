@@ -44,6 +44,7 @@ npm i @eslint/js -g
 # Playwright
 npm install -g @playwright/cli@latest
 playwright-cli --help
+playwright-cli install-browser
 playwright-cli install --skills
 
 # PM2
