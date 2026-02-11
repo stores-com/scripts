@@ -66,6 +66,10 @@ brew services start redis
 # Salesforce CLI
 brew install --cask salesforce-cli
 
+# Slack CLI: https://github.com/rockymadden/slack-cli
+brew tap rockymadden/rockymadden
+brew install rockymadden/rockymadden/slack-cli
+
 # Visual Studio Code
 brew install visual-studio-code
 
