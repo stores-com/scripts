@@ -25,10 +25,12 @@ curl -fsSL https://claude.ai/install.sh | bash
 # ClickHouse
 curl https://clickhouse.com/cli | sh
 clickhousectl local install stable
+mkdir -p "$HOME/.clickhouse-data"
 
-# ClickHouse auto-start on login
-mkdir -p ~/Library/LaunchAgents
-cat > ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist <<'EOF'
+# LaunchAgent for auto-start on login (analogue of `brew services start`).
+# Uses heredoc *without* quotes on EOF so $HOME expands during write.
+mkdir -p "$HOME/Library/LaunchAgents"
+cat > "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -36,10 +38,13 @@ cat > ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist <<'EOF'
     <key>Label</key><string>com.stores-com.clickhouse-local</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/bin/bash</string>
-      <string>-lc</string>
-      <string>clickhousectl local server start --foreground</string>
+      <string>$HOME/.local/bin/clickhousectl</string>
+      <string>local</string>
+      <string>server</string>
+      <string>start</string>
+      <string>--foreground</string>
     </array>
+    <key>WorkingDirectory</key><string>$HOME/.clickhouse-data</string>
     <key>RunAtLoad</key><true/>
     <key>KeepAlive</key><true/>
     <key>StandardOutPath</key><string>/tmp/clickhouse-local.out.log</string>
@@ -47,8 +52,9 @@ cat > ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist <<'EOF'
   </dict>
 </plist>
 EOF
-launchctl unload ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist 2>/dev/null || true
-launchctl load ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist
+
+launchctl unload "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist" 2>/dev/null || true
+launchctl load "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist"
 
 # MongoDB
 brew tap mongodb/brew
