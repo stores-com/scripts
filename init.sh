@@ -22,6 +22,11 @@ brew install --cask claude
 # Claude Code
 curl -fsSL https://claude.ai/install.sh | bash
 
+# ClickHouse
+curl https://clickhouse.com/cli | sh
+clickhousectl local install stable
+clickhousectl local server start
+
 # MongoDB
 brew tap mongodb/brew
 brew install mongodb-community@8.0
