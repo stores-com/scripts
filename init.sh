@@ -27,15 +27,14 @@ curl https://clickhouse.com/cli | sh
 clickhousectl local install stable
 mkdir -p "$HOME/.clickhouse-data"
 
-# LaunchAgent for auto-start on login (analogue of `brew services start`).
-# Uses heredoc *without* quotes on EOF so $HOME expands during write.
+# LaunchAgent for auto-start on login
 mkdir -p "$HOME/Library/LaunchAgents"
-cat > "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist" <<EOF
+cat > "$HOME/Library/LaunchAgents/com.clickhouse.local.plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>Label</key><string>com.stores-com.clickhouse-local</string>
+    <key>Label</key><string>com.clickhouse.local</string>
     <key>ProgramArguments</key>
     <array>
       <string>$HOME/.local/bin/clickhousectl</string>
@@ -53,8 +52,8 @@ cat > "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist" <<EOF
 </plist>
 EOF
 
-launchctl unload "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist" 2>/dev/null || true
-launchctl load "$HOME/Library/LaunchAgents/com.stores-com.clickhouse-local.plist"
+launchctl unload "$HOME/Library/LaunchAgents/com.clickhouse.local.plist" 2>/dev/null || true
+launchctl load "$HOME/Library/LaunchAgents/com.clickhouse.local.plist"
 
 # MongoDB
 brew tap mongodb/brew
