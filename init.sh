@@ -25,7 +25,30 @@ curl -fsSL https://claude.ai/install.sh | bash
 # ClickHouse
 curl https://clickhouse.com/cli | sh
 clickhousectl local install stable
-clickhousectl local server start
+
+# ClickHouse auto-start on login
+mkdir -p ~/Library/LaunchAgents
+cat > ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key><string>com.stores-com.clickhouse-local</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>-lc</string>
+      <string>clickhousectl local server start --foreground</string>
+    </array>
+    <key>RunAtLoad</key><true/>
+    <key>KeepAlive</key><true/>
+    <key>StandardOutPath</key><string>/tmp/clickhouse-local.out.log</string>
+    <key>StandardErrorPath</key><string>/tmp/clickhouse-local.err.log</string>
+  </dict>
+</plist>
+EOF
+launchctl unload ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist 2>/dev/null || true
+launchctl load ~/Library/LaunchAgents/com.stores-com.clickhouse-local.plist
 
 # MongoDB
 brew tap mongodb/brew
